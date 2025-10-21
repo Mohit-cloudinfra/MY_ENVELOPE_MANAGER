@@ -1,0 +1,265 @@
+/* envelopgroup.css */
+
+.table-content-1 {
+  width: 100%;
+  background-color: white;
+  border-radius: 5px;
+  padding: 20px;
+  /* height: 690px; */
+  overflow: auto;
+  /* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2); */
+}
+
+
+
+.table-content-1 table {
+  width: 55%;
+  table-layout: fixed; 
+  margin: 0 auto;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+
+}
+
+
+.table-content-1 th,
+.table-content-1 td {
+  text-align: center;
+  padding: 10px;
+  overflow: visible;
+  text-overflow: initial;
+  white-space: normal; /* Allow text to wrap */
+  word-break: break-word; /* Break long words if needed */
+  border: none;
+}
+
+
+.table-content-1 th {
+  background-color: #f8f9fa;
+  font-weight: 500 !important;
+
+
+}
+
+.table-content-1 td {
+  background-color: #ffffff;
+  font-size: 14px !important;
+  color: rgb(0, 0, 0, 0.699);
+  
+
+}
+.table-content-1 tr:hover td {
+  background-color: #f8f9fa;
+}
+
+
+.align-action {
+  /* display: flex; */
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
+}
+
+
+.delete-icon {
+  color: rgb(240, 96, 77);
+  width: 20px;
+  height: 20px;
+}
+
+/* Add styling for add-client-btn */
+.add-client-btn-1 {
+  position: relative;
+  border: none;
+  padding: 8px;
+  background-color: #09c;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  color: white;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+
+.search-div-envelop {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-width: 439px;
+  gap: 15px;
+}
+
+.input-container-envelop {
+  position: relative;
+  width: 44.2%;
+  min-width:194px;
+  margin-right: 0px;
+  max-width: 400px;
+}
+
+.envelope-group-header{
+  display: flex;
+  gap: 10px;
+  overflow: auto;
+  scrollbar-width: none;
+}
+
+
+.search-div-envelop input {
+  width: 100%;
+  height: 35px;
+  font-size: 13px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+}
+
+.search-icon {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #888;
+  pointer-events: none;
+}
+.add-envelope-group-btn{
+  border: none;
+  background-color: var(--buttonColor);
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  color: var(--white);
+  font-size: 14px;
+  cursor: pointer;
+  padding: 8px 16px; /* Adjust padding for proper button sizing */
+  height: 35px;
+  min-width: 180px;
+  transition: all 0.3s ease;
+}
+@media (max-width: 768px){
+  .envelope-header{
+    display:block;
+  }
+}
+@media (max-width: 1800px) {
+  .table-content-1 table {
+      width: 100%;
+      margin: 0 auto;
+      min-width: 480px;
+      table-layout: fixed; 
+  }
+
+}
+
+
+.envelope-preview-wrapper {
+  /* margin-top: 20px; */
+  padding: 10px;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+  box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 410px;
+  /* height: 150px; */
+  overflow: auto;
+}
+.envelope-preview-wrapper-title{
+  font-size: 14px;
+  font-weight: 500;
+}
+/* Envelope Preview */
+.envelope-preview {
+  position: relative;
+  border: 2px solid #000;
+  background-color: #fff;
+  /* Ensure the background is white for better contrast */
+  border-radius: 5px;
+  margin-top: 10px;
+  /* Rounded corners for the envelope */
+}
+
+/* Envelope Margins */
+.envelope-margin {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: #333;
+}
+
+/* Envelope Section */
+.envelope-section {
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  color: #333;
+  border-radius: 3px;
+  /* Rounded corners for sections */
+  box-sizing: border-box;
+}
+
+/* Margin Labels */
+.margin-label {
+  text-align: center;
+  line-height: 1.2em;
+  /* Adjust line-height for better vertical spacing */
+  font-size: 10px;
+  /* Smaller font size for margin labels */
+  color: #666;
+  /* Slightly lighter color for labels */
+  display: inline-block;
+}
+
+/* Responsive Design for Envelope Preview */
+@media (max-width: 768px) {
+  .envelope-preview {
+    width: 100%;
+    /* Ensure the envelope preview takes full width on smaller screens */
+    height: auto;
+    /* Allow height to adjust based on content */
+  }
+
+  .envelope-margin,
+  .envelope-section {
+    font-size: 10px;
+    /* Smaller font size for smaller screens */
+  }
+}
+
+/* Ensure text inside sections is centered */
+.envelope-section span {
+  text-align: center;
+  display: block;
+  margin: 0;
+}
+
+/* Add padding for section content */
+.envelope-section {
+  padding: 5px;
+  /* Add padding inside sections */
+}
+
+/* Box shadow for sections */
+.envelope-section {
+  box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.1);
+  /* Light shadow around sections */
+}
+
+.table-scrollable {
+  display: block;
+  /* max-height: 400px;  */
+  overflow-y: auto;
+}
+
+.table-scrollable tbody {
+  display: block;
+  overflow-y: auto;
+}
+
+.table-scrollable thead,
+.table-scrollable tbody tr {
+  display: table;
+  width: 100%;
+  table-layout: fixed; 
+}

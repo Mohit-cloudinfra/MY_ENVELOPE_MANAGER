@@ -1,0 +1,20 @@
+:root {
+    --white: #FFF;
+    --black: #000;
+    --buttonColor: #09c;
+    --button-hover:#05759b;
+    --model_body: #f6f7fa;
+    --text1:#303030;
+    --text2:#525252;
+    --text3:#474747;
+    --text4:#747474;
+    --primary-body: #f6f7fa;
+    --hover: #504b4b44;
+    --active-menu:#504b4b75;
+    --active:#eaf4fb;
+    --success:#28a745;
+    --error:#dc3545;
+    --alert-bg:#00000080;
+    --modal-bg:#00000099;
+    --toggle-active:#28a745
+}

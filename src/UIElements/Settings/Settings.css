@@ -1,0 +1,317 @@
+@import '../../Variable.css';
+
+body {
+    font-family: 'Jost', sans-serif;
+}
+
+/* profileAuthor.css */
+.card {
+    width: 100%;
+    margin-top: 10%;
+    display: block;
+    text-align: left;
+    padding-top: 40px;
+    border: none;
+}
+
+.list-item {
+    background-color: var(--active);
+    color: var(--theme-color);
+    border-radius: 5px;
+}
+
+.icons {
+    width: 16px;
+    height: 16px;
+    margin-left: 10px;
+}
+
+.author {
+    background-color: white !important;
+    color: rgb(70, 68, 68) !important;
+    border: none;
+    width: 100%;
+    text-align: left;
+    font-size: 16px;
+    margin-bottom: 10px;
+    text-decoration: none;
+}
+.author:hover {
+    background-color: var(--active) !important;
+}
+.author.active1 {
+    background-color: var(--active) !important;
+    color: var(--theme-color) !important;
+    border: 1px solid var(--theme-color);
+}
+
+/*profile.css*/
+
+.card1 {
+    width: 100%;
+    height: 100%;
+    margin-top: 3.25%;
+    background-color: var(--white);
+    display: block;
+    text-align: left;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.card1-header {
+    background-color: var(--white);
+    border: none;
+    padding:20px 0px 0px 20px;
+    
+}
+
+.card1-header h1 {
+    font-weight: 500;
+    font-size: 18px;
+    margin-bottom: 3px;
+}
+
+.card1-header span {
+    font-weight: 400;
+    font-size: 13px;
+    margin: 0px;
+    color: var(--text4);
+}
+
+.input-form {
+    padding: 15px
+}
+.pass-eye-1{
+    width: 14px !important;
+    height: 14px !important;
+    margin-right: 1px;
+}
+
+.bold-label {
+    margin-top: 10px !important;
+    font-weight: 500;
+    margin-bottom: 2px !important;
+}
+
+.btn1 {
+    margin-top: 40px !important;
+    background-color: var(--theme-color);
+    padding: 10px
+}
+
+.btn1:hover {
+    background-color: var(--button-hover) !important;
+}
+
+.btn-cancel {
+    margin-top: 40px !important;
+    background-color: var(--buttonColor);
+    padding: 10px
+}
+
+.btn-cancel:hover {
+    background-color: rgb(77, 76, 76) !important;
+}
+
+/*setting page.css */
+.custom-bg-white {
+    background-color: var(--white);
+}
+
+.custom-font {
+
+    background-color: var(--white);
+
+}
+
+.custom-bottom {
+    margin-bottom: 5px !important;
+}
+
+.title {
+    font-size: 18px !important;
+    /* line-height: 32px; */
+    font-weight: 500 !important;
+    padding-left: 10px;
+}
+
+.button-box {
+    width: 100%;
+    margin-top: 10.4%;
+    display: block;
+    text-align: left;
+    /* padding-top: 50px; */
+    border: none;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 40px 20px !important;
+    background-color: white !important;
+}
+
+
+.password-input-container {
+    position: relative;
+}
+
+
+.toggle-password-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    color: #000;
+}
+.btn1{
+    background-color:var(--buttonColor) ;
+}
+.sub-button{
+    display: flex;
+    justify-content: start;
+    
+}
+.sub-button button{
+    background-color:var(--buttonColor) ;
+    color: white;
+    border: none;
+    margin-top: 20px !important;
+    width: 100px;
+}
+.sub-button button:hover {
+    background-color: var(--button-hover) !important;
+    color: white;
+}
+#indiciaText::placeholder {
+    opacity: 0.5; /* Adjust the value for desired opacity */
+}
+.nav-icon {
+    font-size: 15px;
+    
+}
+
+.preview-container {
+    padding: 20px; /* Adjust padding as needed */
+    margin: 0 auto; /* Center the container */
+    width: 100%; /* Make sure it takes full width */
+}
+
+.preview-box {
+    background-color: #fff;
+    padding: 15px;
+    width:150px;
+    height:150px;
+    border-radius: 8px;
+    
+}
+.card2-body {
+    display: flex;
+    gap: 20px; /* Space between form and preview container */
+    margin-left: 80px;
+}
+
+.form-container {
+    flex: 1; /* Allow form to take up remaining space */
+}
+.editor-controls {
+    padding-top: 12px;
+    padding-left: 8px;
+    padding-right: 8px;
+    padding-bottom: 3px;
+    background-color: #f8f9fa;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    display: flex;
+    gap: 15px;
+    display: flex;
+    width: 60%;
+    margin-left: 100px !important;
+}
+/* Container for color picker */
+.color-picker-container {
+    position: relative;
+    display: inline-block;
+    margin-bottom: 5px;
+    margin-left: -3px;
+}
+
+
+.color-label i {
+    margin-right: 5px;
+}
+.color-label u {
+    text-decoration: underline;
+}
+
+.color-picker {
+    position: absolute;
+    left: 0;
+    top: 100%;
+    width: 0px;
+    height: 0px;
+    border: none;
+    border-radius: 4px;
+    padding: 0;
+    opacity: 0;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    visibility: hidden;
+    z-index: 10;
+    cursor: pointer;
+}
+
+/* Show color input when clicking the label */
+.color-picker-container:hover .color-picker {
+    opacity: 1;
+    visibility: visible;
+}
+
+.color-picker-container:hover .color-picker {
+    opacity: 1;
+    visibility: visible;
+}
+.form-group button {
+    background: none;
+    border: none;
+    padding: 5px;
+    margin: 0 5px;
+    cursor: pointer;
+    font-size: 18px;
+    color: #333; /* Customize the icon color */
+}
+
+.form-group button:hover {
+    color: #007bff; /* Change icon color on hover */
+}
+
+.form-group button:focus {
+    outline: none; /* Remove the focus outline */
+}
+
+.form-group svg {
+    width: 20px; /* Adjust the icon size */
+    height: 20px;
+}
+select.form-control {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    -ms-appearance: none;
+    -o-appearance: none;
+    appearance: none;
+    background: url('data:image/svg+xml;utf8,<svg fill="%23000000" height="20px" viewBox="0 0 24 24" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0V0z" fill="none"/><path d="M7 10l5 5 5-5z"/></svg>') no-repeat right 10px center;
+    padding-right: 10px;
+    /* Adjust padding to create space */
+    font-size: 14px;
+}
+input.form-control[type="number"] {
+    -webkit-appearance: none;
+    -moz-appearance: textfield; /* For Firefox */
+    appearance: none;  /* Standardize appearance */
+    background: url('data:image/svg+xml;utf8,<svg fill="%23000000" height="20px" viewBox="0 0 24 24" width="20px" xmlns="http://www.w3.org/2000/svg"><path d="M0 0h24v24H0V0z" fill="none"/></svg>') no-repeat right 10px center;
+}
+
+
+.indicia-line{
+    display: flex;
+    align-items: center;
+}

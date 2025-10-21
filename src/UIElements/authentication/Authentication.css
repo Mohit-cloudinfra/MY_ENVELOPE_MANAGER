@@ -1,0 +1,221 @@
+@import '../../Variable.css';
+
+/* chanage password page css */
+.change-password-span {
+  display: block;
+  margin-top: 15%;
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+.validatecode-span {
+  display: block;
+  margin-top: 20%;
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+.signin-span {
+  display: block;
+  margin-top: 20%;
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+.logo {
+  font-size: 15px;
+  opacity: 0.8;
+}
+
+.form-container {
+  width: 100%;
+  max-width: 550px;
+}
+
+.inputs {
+  height: 45px;
+}
+
+.is-valid {
+  border-color: var(--success) !important;
+  padding-right: calc(1.5em + 0.75rem) !important;
+  background-image: none !important;
+}
+
+.pass-eye {
+  width: 18px !important;
+  height: 18px !important;
+  margin-right: 1px;
+}
+
+.submit-button {
+  width: 100%;
+  height: 45px;
+  background-color: var(--buttonColor) !important;
+  border: none;
+}
+
+.submit-button:hover {
+  background-color: var(--button-hover) !important;
+  color: var(--white) !important;
+  box-shadow: var(--buttonColor) !important;
+}
+
+.submit-button1 {
+  width: 100%;
+  height: 45px;
+  background-color: var(--buttonColor) !important;
+  border: none;
+  margin-bottom: 20px !important;
+}
+
+.submit-button1:hover {
+  background-color: var(--button-hover) !important;
+  color: var(--white) !important;
+  box-shadow: var(--buttonColor) !important;
+}
+
+.link-back {
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--buttonColor) !important;
+}
+
+/* forgot password page css */
+
+.card-title {
+  display: inline-block;
+  margin-top: 40%;
+  text-align: center;
+  margin-left: 40%;
+  font-size: 1.5em;
+  font-weight: 500;
+}
+
+.centered-logo {
+  margin-top: 70%;
+  height: 40px;
+  width: 230px;
+  margin-left: 100px;
+}
+
+.card-text {
+  display: inline-block;
+  width: 110%;
+  text-align: center;
+}
+
+.card-body {
+  margin-left: 40%;
+  width: 100%;
+  margin-right: -200px;
+}
+
+.custom-form-group {
+  width: 100%;
+  margin-left: 10%;
+}
+
+.custom-form-control {
+  height: 45px;
+  width: 100%;
+}
+
+.custom-error-message {
+  color: var(--error);
+  margin-left: 10%;
+}
+
+.custom-button {
+  height: 45px;
+  background-color: var(--buttonColor) !important;
+  border: none;
+
+}
+
+.custom-button:hover {
+  background-color: var(--button-hover) !important;
+  color: var(--white) !important;
+  box-shadow: var(--buttonColor) !important;
+}
+
+
+.custom-link {
+  text-decoration: underline;
+  cursor: pointer;
+  color: var(--buttonColor);
+  align-items: flex-start;
+  /* margin-left: -90%; */
+}
+
+
+/* sign In page css */
+.text-decoration-underline {
+  text-decoration: underline;
+}
+
+.customs-link {
+  cursor: pointer;
+  color: var(--buttonColor);
+  padding-top: 15px;
+  margin-left: 0%;
+}
+
+.form-check {
+  margin-top: 15px;
+}
+
+.text-decoration-underline {
+  text-decoration: underline;
+}
+
+.custom-link2 {
+  cursor: pointer;
+  color: var(--buttonColor);
+}
+
+.custom-link3 {
+  cursor: pointer;
+  color: var(--buttonColor);
+}
+
+.full-page-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+
+}
+
+.centered-content {
+  width: 100%;
+  max-width: 600px;
+  padding: 20px;
+  text-align: center;
+}
+
+.password-toggle-icon {
+  position: absolute;
+  cursor: pointer;
+  top: 10px;
+  background-color: 'green';
+}
+
+.password-container {
+  position: relative;
+}
+
+.heading-span {
+  display: block;
+  /* margin-top: 20%; */
+  font-size: 1.7em;
+  margin-bottom: 10px;
+  font-weight: 400;
+  letter-spacing: 0.05em;
+  /* Adds space between letters */
+  color: var(--buttonColor);
+  text-align: center;
+  /* Centers the text horizontally */
+  line-height: 1.4;
+  /* Improves readability by adjusting the line spacing */
+}

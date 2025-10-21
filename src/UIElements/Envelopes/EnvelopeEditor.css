@@ -1,0 +1,399 @@
+.modal-content-editor {
+    position: relative;
+    width: 90%;
+    height: 90%;
+    margin: auto;
+    border-radius: 8px;
+    transition: all 0.1s ease-in-out;
+    top: auto;
+    left: auto;
+    padding:20px;
+  }
+  
+.fullscreen-modal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: 101vh !important;
+    border-radius: 0 !important;
+    z-index: 9999 !important;
+    padding: 0px;
+    border-radius: 3px;
+    box-sizing: border-box;
+  }
+  .modal-header h4 {
+    font-size: 18px;
+    font-weight: 600;
+    margin: 0;
+    flex-grow: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+  
+  .modal-header-controls {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+  }
+.editor-div {
+    height: 90% !important;
+    background-color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+
+}
+
+.editor-control-fields {
+    padding: 15px 30px;
+    background-color: #f8f9fa;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    gap: 15px;
+    display: flex;
+    width: max-content;
+    min-width: 700px;
+    /* Add a minimum width to avoid shrinking */
+    justify-content: center;
+}
+
+.Buttons-div {
+    background-color: #f8f9fa;
+    padding: 20px 25px 20px 25px;
+    align-items: center;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    margin-bottom: 20px;
+    gap: 20px;
+    display: flex;
+
+}
+
+.Editor-main {
+    display: flex;
+    flex-direction: row;
+    gap: 30px;
+    min-width: 50%;
+    margin-top: 30px;
+    justify-content: center;
+
+
+}
+.parent{
+    overflow: auto;
+    min-height: 400px;
+}
+
+.envelope {
+
+    padding: 20px;
+    /* Add some padding for aesthetics */
+    background-color: #f9f9f9;
+    /* Light background color */
+    border: 1px solid #ddd;
+    /* Subtle border */
+    border-radius: 8px;
+    /* Rounded corners */
+}
+
+/* WebKit browsers (Chrome, Safari) */
+.envelope::-webkit-scrollbar {
+    width: 12px;
+    /* Width of the scrollbar */
+}
+
+.envelope::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    /* Track color */
+    border-radius: 8px;
+    /* Rounded track */
+}
+
+.envelope::-webkit-scrollbar-thumb {
+    background: #888;
+    /* Scrollbar color */
+    border-radius: 8px;
+    /* Rounded scrollbar */
+}
+
+.envelope::-webkit-scrollbar-thumb:hover {
+    background: #555;
+    /* Darker color on hover */
+}
+
+/* Firefox */
+.envelope {
+    scrollbar-width: thin;
+    /* Thin scrollbar */
+    scrollbar-color: #b3b2b2 #f1f1f1;
+    /* Scrollbar color and track color */
+}
+
+/* Optional: Add a transition for smooth hover effect */
+.envelope::-webkit-scrollbar-thumb {
+    transition: background 0.3s ease;
+}
+
+.page-navigation {
+    text-align: center;
+    margin-top: -10px;
+    padding-bottom: 20px;
+}
+
+.addpage-btn {
+    background-color: #09c;
+    /* Green background */
+    color: white;
+    /* White text */
+    border: none;
+    /* No border */
+    padding: 5px;
+    text-align: center;
+    /* Centered text */
+    text-decoration: none;
+    /* No underline */
+    display: inline-block;
+    /* Inline-block for proper spacing */
+    font-size: 14px;
+    /* Font size */
+
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    border-radius: 5px;
+    /* Rounded corners */
+    transition: background-color 0.3s;
+    /* Smooth transition */
+}
+
+.addpage-btn:hover {
+    background-color: #09c;
+    /* Darker green on hover */
+}
+
+.Removepage-btn {
+    background-color: #f44336;
+    /* Red background */
+    color: white;
+    /* White text */
+    border: none;
+    /* No border */
+    padding: 5px;
+    text-align: center;
+    /* Centered text */
+    text-decoration: none;
+    /* No underline */
+    display: inline-block;
+    /* Inline-block for proper spacing */
+    font-size: 14px;
+    /* Font size */
+
+    cursor: pointer;
+    /* Pointer cursor on hover */
+    border-radius: 5px;
+    /* Rounded corners */
+    transition: background-color 0.3s;
+    /* Smooth transition */
+}
+
+.Removepage-btn:hover {
+    background-color: #d32f2f;
+    /* Darker red on hover */
+}
+
+.dropdown {
+    background-color: white;
+    width: 150px;
+    border: none;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 100px;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2);
+}
+
+.dropdown div {
+    width: 150px;
+    display: flex;
+
+    align-items: center;
+    flex-direction: column;
+    height: 35px;
+    justify-content: center;
+    font-family: 'Roboto, sans-serif';
+    font-size: 15px;
+}
+
+/* Dropdown container */
+
+
+/* Hover effect for dropdown items */
+.dropdown div:hover {
+    background-color: #f0f0f0;
+    color: black
+        /* Light background on hover */
+}
+
+/* Highlight active value */
+.dropdown .active {
+    background-color: #f0f0f0;
+    /* Slightly darker background for active item */
+    font-weight: bold;
+    /* Bold text for active item */
+    color: black
+}
+
+/* Modal Bottom Container */
+.modal-bottom {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px;
+    border-top: 1px solid #ddd;
+    background-color: #f9f9f9;
+}
+
+
+.edit-save {
+    padding: 5px 10px 5px 10px;
+    /* Adjust padding for better appearance */
+    background-color: #09c;
+    /* Green background color */
+    color: #fff;
+    /* White text color */
+    border: none;
+    /* Remove default border */
+    border-radius: 5px;
+    /* Rounded corners */
+    cursor: pointer;
+    /* Show pointer cursor on hover */
+    font-size: 16px;
+    /* Adjust font size */
+    transition: background-color 0.3s;
+    /* Smooth transition for hover effect */
+}
+
+.modal-contents {
+    background-color: #fff;
+    border-radius: 8px;
+    min-width: 50%;
+    box-shadow: 0px 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.table-content-envs {
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    padding-top: 10px;
+    overflow: auto;
+    max-height: 650px;
+    /* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.2); */
+}
+
+.table-content-envs table {
+    width: 100%;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.table-content-envs th {
+    font-weight: 500 !important;
+    background-color: #f8f9fa;
+
+}
+
+.table-content-envs th,
+.table-content-envs td {
+    text-align: center;
+    padding: 10px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    border: none;
+    /* width: 20px; */
+}
+
+.table-content-envs td {
+    background-color: #ffffff;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.699);
+
+}
+
+.table-content-envs tr:hover td {
+    background-color: #f8f9fa;
+}
+
+.border-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    /* border: 1px solid #000; */
+    margin: 10px;
+    margin-left: 15px;
+    padding: 10px;
+    width: 96.5%;
+    background-color: #f8f9fa;
+}
+
+.rnd-dragging {
+    box-shadow: none !important;
+}
+
+.shape-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.5);
+    z-index: 999;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .shape-modal-container {
+    background: white;
+    border-radius: 8px;
+    width: 300px;
+
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+  }
+  
+  .shape-modal-header {
+    background-color: #09c;
+    color: white;
+    padding: 10px 15px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: bold;
+    border-radius: 8px 8px 0 0;
+  }
+  
+  .shape-modal-close {
+    cursor: pointer;
+  }
+  
+  .shape-modal-content {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    padding: 16px;
+    justify-content: center;
+  }
+  
+  .shape-box {
+    border: 2px solid #ccc;
+    border-radius: 6px;
+    padding: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+  
+  .shape-box:hover {
+    border-color: #09c;
+    background-color: #f0faff;
+  }

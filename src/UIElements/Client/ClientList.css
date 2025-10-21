@@ -1,0 +1,210 @@
+/* Client.css */
+
+.table-content-client {
+    width: 100%;
+    background-color: white;
+    border-radius: 5px;
+    padding: 20px;
+    /* max-height: 750px; */
+    overflow: auto;
+    /* box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1); */
+}
+
+.table-content-client table {
+    width: 60%;
+    margin: auto 20%;
+    align-content: center;
+    table-layout: fixed;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+}
+
+.table-content-client th {
+    font-weight: 500 !important;
+}
+
+.table-content-client th,
+.table-content-client td {
+    text-align: center;
+    padding: 10px;
+    overflow: visible;
+    text-overflow: initial;
+    white-space: normal;
+    border: none;
+}
+
+.table-content-client th {
+    background-color: #f8f9fa;
+    font-weight: bold;
+
+}
+
+.table-content-client td {
+    background-color: #ffffff;
+    font-size: 14px;
+    color: rgba(0, 0, 0, 0.699);
+
+}
+
+.table-content-client tr:hover td {
+    background-color: #f8f9fa;
+}
+
+.status {
+    font-size: 15px;
+    font-weight: 400;
+    text-decoration: underline;
+    color: green;
+}
+
+.align-action {
+    /* display: flex; */
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+}
+
+.action {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    /* cursor: pointer; */
+}
+
+.edit-icon-client {
+    color: #09c;
+    gap: 10px;
+    cursor: pointer;
+    margin-bottom: 5px;
+    margin-right: 10px;
+}
+
+.delete-icon {
+    color: rgb(240, 96, 77);
+    width: 20px;
+    height: 20px;
+}
+
+/* Add styling for add-client-btn */
+.add-client-btn {
+    position: relative;
+    border: none;
+    /* padding: 8px; */
+    background-color: #09c;
+    box-shadow: 0px 0px 10px 0px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    color: white;
+    font-size: 14px;
+    cursor: pointer;
+    width: 120px;
+    height: 35px;
+}
+
+/* Toggle Switch */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 36px;
+    height: 20px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: grey;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 14px;
+    width: 14px;
+    left: 1px;
+    bottom: 3px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked+.slider {
+    background-color: var(--toggle-active);
+}
+
+input:checked+.slider:before {
+    transform: translateX(20px);
+}
+
+.refresh-icon {
+    font-size: 35px;
+    color: grey;
+    min-height: 35px;
+    min-width: 35px;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.refresh-icon.rotate {
+    animation: spin 1s linear forwards;
+    color: grey;
+}
+
+.refresh-icon.infinite {
+    animation: spin 1s linear infinite;
+    color: #09c;
+}
+
+@media (max-width: 1200px) {
+    .table-content-client table {
+        width: 100%;
+        min-width: 500px;
+        margin: 0px;
+
+    }
+
+}
+
+.table-scrollable {
+    display: block;
+    /* max-height: 400px;  */
+    overflow-y: auto;
+}
+
+.table-scrollable tbody {
+    display: block;
+    overflow-y: auto;
+}
+
+.table-scrollable thead,
+.table-scrollable tbody tr {
+    display: table;
+    width: 100%;
+    table-layout: fixed;
+}
+
+.table-rows {
+    white-space: normal !important;
+    word-wrap: break-word;
+    overflow-wrap: anywhere;
+    max-width: 250px !important;
+}

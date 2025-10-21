@@ -1,0 +1,210 @@
+/* src/CustomAlert.css */
+@import '../../Variable.css';
+
+.custom-alert {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--alert-bg);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1100;
+  /* Ensure it's on top */
+}
+
+.custom-alert-content {
+  background: var(--white);
+  padding: 20px;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.alert-buttons {
+  margin-top: 20px;
+}
+
+.alert-buttons button {
+  margin: 0 10px;
+  padding: 5px 25px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  color: var(--white);
+}
+
+.alert-buttons button.defaultColor {
+  background-color: var(--buttonColor);
+  /* Default button color */
+}
+
+
+.custom-toast {
+  position: fixed;
+  padding: 10px;
+  width: 300px;
+  border-radius: 5px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+  z-index: 1100;
+  color: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center; 
+  gap: 10px;
+  text-align: center;
+  min-height: 60px; 
+  cursor: pointer;
+}
+
+.custom-toast strong {
+  font-size: 16px;
+}
+
+.custom-toast p {
+  margin: 0;
+  font-size: 14px;
+}
+
+
+.toast-bottom-center {
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--buttonColor);
+}
+
+.toast-bottom-right {
+  bottom: 20px;
+  right: 20px;
+  background-color: var(--buttonColor);
+}
+
+.toast-bottom-left {
+  bottom: 20px;
+  left: 20px;
+  background-color: var(--buttonColor);
+}
+
+.toast-top-center {
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  background-color: var(--buttonColor);
+}
+
+.toast-top-right {
+  top: 20px;
+  right: 20px;
+  background-color: var(--buttonColor);
+}
+
+.toast-top-left {
+  top: 20px;
+  left: 20px;
+  background-color: var(--buttonColor);
+}
+
+.toast-center {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background-color: var(--buttonColor);
+}
+
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 5px;
+  background-color: var(--white);
+  width: 100%;
+  animation-name: progress;
+  animation-timing-function: linear;
+}
+
+.close-toast {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  background: transparent;
+  border: none;
+  color: white;
+  font-size: 12px;
+  cursor: pointer;
+}
+
+@keyframes progress {
+  from {
+    width: 100%;
+  }
+
+  to {
+    width: 0;
+  }
+}
+
+.custom-hud-container {
+
+  position: fixed;
+  top: 50%;
+  left: 48%;
+  transform: translate(-50%, -50%);
+  width: 300px;
+  padding: 40px;
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); */
+  z-index: 2000;
+  /* Ensure it is above other content */
+}
+
+.custom-hud {
+
+  justify-content: center;
+  display: flex;
+  align-items: center;
+  font-size: 1.0rem;
+  padding: 20px;
+  width: 300px;
+  height: 80px;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  gap: 13px;
+  /* Add gap between spinner and message */
+}
+
+.custom-hud .ant-spin {
+  margin-right: 15px;
+  /* Remove margin-right as we are using gap */
+
+}
+
+.custom-spin .ant-spin-dot-item {
+  background-color: var(--buttonColor) !important;
+  /* Change this to your desired color */
+}
+
+@media only screen and (max-width: 768px) {
+  .custom-hud-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%; /* Reduce the width to 90% of the screen */
+    max-width: 250px; /* Set a max-width to avoid it becoming too wide on larger mobile screens */
+    padding: 20px; /* Adjust padding for better spacing */
+    z-index: 1000; /* Ensure it is above other content */
+  }
+
+  .custom-hud {
+    font-size: 0.9rem; /* Slightly reduce font size */
+    width: 100%; /* Make the hud take full width of the container */
+    height: auto; /* Allow height to adjust automatically */
+    padding: 15px; /* Adjust padding for better spacing */
+    gap: 10px; /* Adjust the gap slightly */
+    box-shadow: 0 0 8px rgba(0, 0, 0, 0.15); /* Slightly reduce shadow intensity */
+  }
+}

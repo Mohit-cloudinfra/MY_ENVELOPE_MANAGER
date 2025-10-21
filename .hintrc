@@ -1,0 +1,22 @@
+{
+  "extends": [
+    "development"
+  ],
+  "hints": {
+    "compat-api/css": [
+      "default",
+      {
+        "ignore": [
+          "accent-color",
+          "scrollbar-width",
+          "scrollbar-width: none",
+          "scrollbar-width: thin",
+          "scrollbar-color",
+          "inset",
+          "position: sticky",
+          "overflow-wrap: anywhere"
+        ]
+      }
+    ]
+  }
+}
