@@ -74,10 +74,7 @@ const listOptions = [
 ];
 
 
-
-
 const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, customElements, EnvelopeGroups, ImageData, ClientId, MasterElements, page }) => {
-
 
     const [envelopeData, setEnvelopeData] = useState({ sections: [] });
     const [selectedElement, setSelectedElement] = useState(null); // Tracks the currently active element
@@ -118,15 +115,6 @@ const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, custom
     const [isAlignMentOpen, setIsAlignMentOpen] = useState(false);
     const [isListTypeOpen, setListTypeOpen] = useState(false);
 
-    // Smart Guides state
-    const [activeGuides, setActiveGuides] = useState({
-        vertical: [],
-        horizontal: [],
-        spacing: []
-    });
-    const [highlightedElements, setHighlightedElements] = useState(new Set());
-    const SNAP_THRESHOLD = 5;
-
     let lastPastedText = null;
 
     const s3 = new AWS.S3({
@@ -143,8 +131,6 @@ const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, custom
         reader.onerror = reject;
         reader.readAsArrayBuffer(blob);
     });
-
-
 
     useEffect(() => {
         setLoading(true);
@@ -242,8 +228,6 @@ const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, custom
         }
     }, [currentPageIndex, pageDataArray]);
 
-
-
     useEffect(() => {
         if (Array.isArray(ImageData) && ImageData.length > 0) {
         }
@@ -254,8 +238,6 @@ const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, custom
             // hud('Please Wait...')
             setLoading(false);
             setEnvelopeData(EnvelopeGroups);
-
-
         }
     }, [EnvelopeGroups]);
 
@@ -276,8 +258,6 @@ const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, custom
 
     useEffect(() => {
     }, [elementsSize]);
-
-
 
     const PrintableareaHide = envelopeData.printMarginBottom && envelopeData.printMarginLeft && envelopeData.printMarginRight && envelopeData.printMarginTop;
 
@@ -326,7 +306,6 @@ const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, custom
     };
 
 
-
     const addShape = (shapeType) => {
         setDragEnabled(true);
         const config = shapeConfigs[shapeType];
@@ -354,8 +333,6 @@ const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, custom
         setSelectedElement(newElement.id);
         elementRefs.current[newElement.id] = React.createRef();
     };
-
-
 
     // selecting the Element
 
@@ -512,8 +489,6 @@ const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, custom
             }
         });
     };
-
-
 
     const onPaste = (e) => {
         e.preventDefault(); // prevent default paste
@@ -785,8 +760,6 @@ const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, custom
     };
 
 
-
-
     //updating the toolbar state on mouse click in the content functionality
 
     const onMouseUp = () => {
@@ -813,8 +786,6 @@ const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, custom
             setLetterSpacing(parseInt(computedStyles.letterSpacing, 10) || 0);
         }
     };
-
-
 
     // Enable and Disable dragging functionality.
 
@@ -926,7 +897,6 @@ const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, custom
         applyTextFormatting('textAlign', alignment, 'div');
     };
 
-
     // Applying the Color to the selected range functionality
 
     const toggleColorPicker = () => {
@@ -1029,7 +999,6 @@ const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, custom
             showToast({ message: `Error applying ${property}. Ensure the selection is valid.` });
         }
     };
-
 
     //Applying the List functionality 
 
@@ -1142,7 +1111,6 @@ const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, custom
         setIsAlignMentOpen(false);
         setListTypeOpen(false);
     };
-
 
     // Applying the LineSpacing and LetterSpacing to the selected range functionality
     const applySpacing = (type, value) => {
@@ -1274,219 +1242,10 @@ const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, custom
     };
 
     //converting the Pixels to inches
+
     const PixelsToInches = (pixels) => {
         return pixels / 96;
     }
-
-    // Smart Guides calculation function
-    const calculateSmartGuides = (draggedEl, dragX, dragY) => {
-        if (!containerRef.current) {
-            return {
-                guides: { vertical: [], horizontal: [], spacing: [] },
-                snappedX: dragX,
-                snappedY: dragY,
-                highlightedIds: new Set()
-            };
-        }
-
-        const containerWidth = containerRef.current.offsetWidth;
-        const containerHeight = containerRef.current.offsetHeight;
-
-        const guides = {
-            vertical: [],
-            horizontal: [],
-            spacing: []
-        };
-
-        // Track which elements are being compared
-        const highlightedIds = new Set();
-
-        // Start with original position
-        let snappedX = dragX;
-        let snappedY = dragY;
-
-        // Dragged element bounds
-        const draggedLeft = dragX;
-        const draggedRight = dragX + draggedEl.width;
-        const draggedTop = dragY;
-        const draggedBottom = dragY + draggedEl.height;
-        const draggedCenterX = dragX + draggedEl.width / 2;
-        const draggedCenterY = dragY + draggedEl.height / 2;
-
-        // Canvas center lines
-        const canvasCenterX = containerWidth / 2;
-        const canvasCenterY = containerHeight / 2;
-
-        let hasVerticalSnap = false;
-        let hasHorizontalSnap = false;
-
-        // Check canvas center alignment - VERTICAL
-        if (Math.abs(draggedCenterX - canvasCenterX) < SNAP_THRESHOLD) {
-            guides.vertical.push({
-                x: canvasCenterX,
-                y1: 0,
-                y2: containerHeight,
-                type: 'canvas-center'
-            });
-            snappedX = canvasCenterX - draggedEl.width / 2;
-            hasVerticalSnap = true;
-        }
-
-        // Check canvas center alignment - HORIZONTAL
-        if (Math.abs(draggedCenterY - canvasCenterY) < SNAP_THRESHOLD) {
-            guides.horizontal.push({
-                y: canvasCenterY,
-                x1: 0,
-                x2: containerWidth,
-                type: 'canvas-center'
-            });
-            snappedY = canvasCenterY - draggedEl.height / 2;
-            hasHorizontalSnap = true;
-        }
-
-        // Check alignment with other elements
-        const otherElements = elements.filter(e => e.id !== draggedEl.id);
-
-        otherElements.forEach(targetEl => {
-            const targetLeft = targetEl.x;
-            const targetRight = targetEl.x + targetEl.width;
-            const targetTop = targetEl.y;
-            const targetBottom = targetEl.y + targetEl.height;
-            const targetCenterX = targetEl.x + targetEl.width / 2;
-            const targetCenterY = targetEl.y + targetEl.height / 2;
-
-            let elementHasAlignment = false;
-
-            // VERTICAL alignment checks
-            if (!hasVerticalSnap) {
-                const verticalChecks = [
-                    { dragPos: draggedLeft, targetPos: targetLeft, type: 'left', snapOffset: 0 },
-                    { dragPos: draggedLeft, targetPos: targetRight, type: 'left-right', snapOffset: 0 },
-                    { dragPos: draggedRight, targetPos: targetLeft, type: 'right-left', snapOffset: -draggedEl.width },
-                    { dragPos: draggedRight, targetPos: targetRight, type: 'right', snapOffset: -draggedEl.width },
-                    { dragPos: draggedCenterX, targetPos: targetCenterX, type: 'center', snapOffset: -draggedEl.width / 2 }
-                ];
-
-                for (const check of verticalChecks) {
-                    if (Math.abs(check.dragPos - check.targetPos) < SNAP_THRESHOLD) {
-                        const y1 = Math.min(draggedTop, targetTop);
-                        const y2 = Math.max(draggedBottom, targetBottom);
-                        guides.vertical.push({
-                            x: check.targetPos,
-                            y1,
-                            y2,
-                            type: `element-${check.type}`
-                        });
-                        snappedX = check.targetPos + check.snapOffset;
-                        hasVerticalSnap = true;
-                        elementHasAlignment = true;
-                        highlightedIds.add(targetEl.id);
-                        break;
-                    }
-                }
-            }
-
-            // HORIZONTAL alignment checks
-            if (!hasHorizontalSnap) {
-                const horizontalChecks = [
-                    { dragPos: draggedTop, targetPos: targetTop, type: 'top', snapOffset: 0 },
-                    { dragPos: draggedTop, targetPos: targetBottom, type: 'top-bottom', snapOffset: 0 },
-                    { dragPos: draggedBottom, targetPos: targetTop, type: 'bottom-top', snapOffset: -draggedEl.height },
-                    { dragPos: draggedBottom, targetPos: targetBottom, type: 'bottom', snapOffset: -draggedEl.height },
-                    { dragPos: draggedCenterY, targetPos: targetCenterY, type: 'center', snapOffset: -draggedEl.height / 2 }
-                ];
-
-                for (const check of horizontalChecks) {
-                    if (Math.abs(check.dragPos - check.targetPos) < SNAP_THRESHOLD) {
-                        const x1 = Math.min(draggedLeft, targetLeft);
-                        const x2 = Math.max(draggedRight, targetRight);
-                        guides.horizontal.push({
-                            y: check.targetPos,
-                            x1,
-                            x2,
-                            type: `element-${check.type}`
-                        });
-                        snappedY = check.targetPos + check.snapOffset;
-                        hasHorizontalSnap = true;
-                        elementHasAlignment = true;
-                        highlightedIds.add(targetEl.id);
-                        break;
-                    }
-                }
-            }
-        });
-
-        // Equal spacing detection
-        if (otherElements.length >= 2) {
-            const sortedByX = [...otherElements].sort((a, b) => a.x - b.x);
-            const sortedByY = [...otherElements].sort((a, b) => a.y - b.y);
-
-            // Check horizontal spacing
-            for (let i = 0; i < sortedByX.length - 1; i++) {
-                const el1 = sortedByX[i];
-                const el2 = sortedByX[i + 1];
-
-                const draggedInBetween = snappedX > el1.x + el1.width && snappedX + draggedEl.width < el2.x;
-                if (draggedInBetween) {
-                    const gap1 = snappedX - (el1.x + el1.width);
-                    const gap2 = el2.x - (snappedX + draggedEl.width);
-
-                    if (Math.abs(gap1 - gap2) < SNAP_THRESHOLD * 2) {
-                        const avgY = (el1.y + draggedTop + el2.y) / 3;
-                        guides.spacing.push({
-                            x1: el1.x + el1.width,
-                            x2: snappedX,
-                            y: avgY,
-                            type: 'horizontal-equal'
-                        });
-                        guides.spacing.push({
-                            x1: snappedX + draggedEl.width,
-                            x2: el2.x,
-                            y: avgY,
-                            type: 'horizontal-equal'
-                        });
-                        // Highlight both elements involved in spacing
-                        highlightedIds.add(el1.id);
-                        highlightedIds.add(el2.id);
-                    }
-                }
-            }
-
-            // Check vertical spacing
-            for (let i = 0; i < sortedByY.length - 1; i++) {
-                const el1 = sortedByY[i];
-                const el2 = sortedByY[i + 1];
-
-                const draggedInBetween = snappedY > el1.y + el1.height && snappedY + draggedEl.height < el2.y;
-                if (draggedInBetween) {
-                    const gap1 = snappedY - (el1.y + el1.height);
-                    const gap2 = el2.y - (snappedY + draggedEl.height);
-
-                    if (Math.abs(gap1 - gap2) < SNAP_THRESHOLD * 2) {
-                        const avgX = (el1.x + draggedLeft + el2.x) / 3;
-                        guides.spacing.push({
-                            y1: el1.y + el1.height,
-                            y2: snappedY,
-                            x: avgX,
-                            type: 'vertical-equal'
-                        });
-                        guides.spacing.push({
-                            y1: snappedY + draggedEl.height,
-                            y2: el2.y,
-                            x: avgX,
-                            type: 'vertical-equal'
-                        });
-                        // Highlight both elements involved in spacing
-                        highlightedIds.add(el1.id);
-                        highlightedIds.add(el2.id);
-                    }
-                }
-            }
-        }
-
-        return { guides, snappedX, snappedY, highlightedIds };
-    };
-
     const EnvelopeCustomAdd = async (elements, shouldCloseEditor = true) => {
         const customSectionId = localStorage.getItem('email');
         const requestData = {
@@ -2579,10 +2338,7 @@ const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, custom
                                                     <React.Fragment >
                                                         <Rnd
                                                             key={`${el.id}-${el.x}-${el.y}`}
-                                                            position={{
-                                                                x: liveDragPosition[el.id]?.x ?? el.x,
-                                                                y: liveDragPosition[el.id]?.y ?? el.y
-                                                            }}
+                                                            position={{ x: el.x, y: el.y }}
                                                             size={{ width: el.width, height: el.height }}
                                                             style={{
                                                                 border: !isCapturing && (el.id === selectedElement || (isAddedElements && el.id === newElementId))
@@ -2591,17 +2347,7 @@ const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, custom
                                                                 borderRadius: '3px',
                                                                 padding: '0px',
                                                                 boxSizing: 'border-box',
-                                                                cursor: isMasterElement ? 'not-allowed' : (dragEnabled ? 'move' : 'text'),
-                                                                outline: highlightedElements.has(el.id) && el.id !== selectedElement
-                                                                    ? '2px solid #00D4FF'
-                                                                    : 'none',
-                                                                outlineOffset: highlightedElements.has(el.id) && el.id !== selectedElement
-                                                                    ? '2px'
-                                                                    : '0',
-                                                                backgroundColor: highlightedElements.has(el.id) && el.id !== selectedElement
-                                                                    ? 'rgba(0, 212, 255, 0.1)'
-                                                                    : 'transparent',
-                                                                transition: 'outline 0.15s ease, background-color 0.15s ease'
+                                                                cursor: isMasterElement ? 'not-allowed' : (dragEnabled ? 'move' : 'text')
                                                             }}
                                                             bounds="parent"
                                                             onClick={() => {
@@ -2635,29 +2381,14 @@ const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, custom
                                                                 }
                                                             }}
                                                             onDrag={(e, d) => {
-                                                                // Calculate guides and snapping
-                                                                const { guides, snappedX, snappedY, highlightedIds } = calculateSmartGuides(el, d.x, d.y);
-
-                                                                // Update guides state and highlighted elements
-                                                                if (el.id === selectedElement) {
-                                                                    setActiveGuides(guides);
-                                                                    setHighlightedElements(highlightedIds);
-                                                                }
-
-                                                                // Update live position with snapped coordinates
                                                                 setLiveDragPosition(prev => ({
                                                                     ...prev,
-                                                                    [el.id]: { x: snappedX, y: snappedY }
+                                                                    [el.id]: { x: d.x, y: d.y }
                                                                 }));
                                                             }}
 
                                                             onDragStop={(e, d) => {
-                                                                const livePos = liveDragPosition[el.id];
-                                                                const finalX = livePos?.x ?? d.x;
-                                                                const finalY = livePos?.y ?? d.y;
-                                                                handleDragStop(el.id, finalX, finalY);
-                                                                setActiveGuides({ vertical: [], horizontal: [], spacing: [] });
-                                                                setHighlightedElements(new Set());
+                                                                handleDragStop(el.id, d.x, d.y);
                                                                 setLiveDragPosition(prev => {
                                                                     const newState = { ...prev };
                                                                     delete newState[el.id];
@@ -2839,141 +2570,172 @@ const EnvelopeEditor = ({ onClose, title, groupID, isPreview, envelopeId, custom
                                                                 </button>
 
                                                             )}
+                                                            {selectedElement === el.id && dragEnabled && (() => {
+                                                                const livePos = liveDragPosition[el.id];
+                                                                const currentX = livePos?.x ?? el.x;
+                                                                const currentY = livePos?.y ?? el.y;
+                                                                const containerHeight = containerRef?.current?.offsetHeight || 0;
+                                                                const containerWidth = containerRef?.current?.offsetWidth || 0;
 
+                                                                const elementCenterX = currentX + el.width / 2;
+                                                                const elementCenterY = currentY + el.height / 2;
+                                                                const containerCenterX = containerWidth / 2;
+                                                                const containerCenterY = containerHeight / 2;
+
+                                                                const isHorizontallyCentered = Math.abs(elementCenterX - containerCenterX) < 5;
+                                                                const isVerticallyCentered = Math.abs(elementCenterY - containerCenterY) < 5;
+
+                                                                const redLine = 'rgba(0,0,0,0.3)';
+                                                                const lineThickness = '1px';
+                                                                const fixedLineLength = 80;
+
+                                                                const topDistance = currentY;
+                                                                const bottomDistance = containerHeight - (currentY + el.height);
+                                                                const leftDistance = currentX;
+                                                                const rightDistance = containerWidth - (currentX + el.width);
+
+                                                                const topLineHeight = isHorizontallyCentered ? Math.min(topDistance, fixedLineLength) : 0;
+                                                                const bottomLineHeight = isHorizontallyCentered ? Math.min(bottomDistance, fixedLineLength) : 0;
+                                                                const leftLineWidth = isVerticallyCentered ? Math.min(leftDistance, fixedLineLength) : 0;
+                                                                const rightLineWidth = isVerticallyCentered ? Math.min(rightDistance, fixedLineLength) : 0;
+                                                                return (
+                                                                    <>
+                                                                        {/* Top Line (centered) */}
+                                                                        {isHorizontallyCentered && topLineHeight > 0 && topDistance !== 0 && (
+                                                                            <div
+                                                                                data-ignore="true"
+                                                                                style={{
+                                                                                    position: 'absolute',
+                                                                                    top: `-${topLineHeight}px`,
+                                                                                    left: '50%',
+                                                                                    width: lineThickness,
+                                                                                    height: `${topLineHeight}px`,
+                                                                                    backgroundColor: redLine,
+                                                                                    zIndex: -1,
+                                                                                    transform: 'translateX(-50%)',
+
+                                                                                }} />
+                                                                        )}
+
+                                                                        {/* Bottom Line (centered) */}
+                                                                        {isHorizontallyCentered && bottomLineHeight > 0 && bottomDistance !== 0 && (
+                                                                            <div
+                                                                                data-ignore="true"
+                                                                                style={{
+                                                                                    position: 'absolute',
+                                                                                    top: `${el.height}px`,
+                                                                                    left: '50%',
+                                                                                    width: lineThickness,
+                                                                                    height: `${bottomLineHeight}px`,
+                                                                                    backgroundColor: redLine,
+                                                                                    zIndex: 9999,
+                                                                                    transform: 'translateX(-50%)',
+                                                                                }} />
+                                                                        )}
+
+                                                                        {/* Left Line (centered) */}
+                                                                        {isVerticallyCentered && leftLineWidth > 0 && leftDistance !== 0 && (
+                                                                            <div
+                                                                                data-ignore="true"
+                                                                                style={{
+                                                                                    position: 'absolute',
+                                                                                    top: '50%',
+                                                                                    left: `-${leftLineWidth}px`,
+                                                                                    width: `${leftLineWidth}px`,
+                                                                                    height: lineThickness,
+                                                                                    backgroundColor: redLine,
+                                                                                    zIndex: 9999,
+                                                                                    transform: 'translateY(-50%)',
+                                                                                }} />
+                                                                        )}
+
+                                                                        {/* Right Line (centered) */}
+                                                                        {isVerticallyCentered && rightLineWidth > 0 && rightDistance !== 0 && (
+                                                                            <div
+                                                                                data-ignore="true"
+                                                                                style={{
+                                                                                    position: 'absolute',
+                                                                                    top: '50%',
+                                                                                    left: `${el.width}px`,
+                                                                                    width: `${rightLineWidth}px`,
+                                                                                    height: lineThickness,
+                                                                                    backgroundColor: redLine,
+                                                                                    zIndex: 9999,
+                                                                                    transform: 'translateY(-50%)',
+                                                                                }} />
+                                                                        )}
+
+                                                                        {/* Top fallback */}
+                                                                        {bottomDistance === 0 && isHorizontallyCentered && (
+                                                                            <div
+                                                                                data-ignore="true"
+                                                                                style={{
+                                                                                    position: 'absolute',
+                                                                                    top: `-${fixedLineLength}px`,
+                                                                                    left: '50%',
+                                                                                    width: lineThickness,
+                                                                                    height: `${fixedLineLength}px`,
+                                                                                    backgroundColor: redLine,
+                                                                                    zIndex: -1,
+                                                                                    transform: 'translateX(-50%)',
+                                                                                }} />
+                                                                        )}
+
+                                                                        {/* Bottom fallback */}
+                                                                        {topDistance === 0 && isHorizontallyCentered && (
+                                                                            <div
+                                                                                data-ignore="true"
+                                                                                style={{
+                                                                                    position: 'absolute',
+                                                                                    top: `${el.height}px`,
+                                                                                    left: '50%',
+                                                                                    width: lineThickness,
+                                                                                    height: `${fixedLineLength}px`,
+                                                                                    backgroundColor: redLine,
+                                                                                    zIndex: 9999,
+                                                                                    transform: 'translateX(-50%)',
+                                                                                }} />
+                                                                        )}
+
+                                                                        {/* Left fallback */}
+                                                                        {rightDistance === 0 && isVerticallyCentered && (
+                                                                            <div
+                                                                                data-ignore="true"
+                                                                                style={{
+                                                                                    position: 'absolute',
+                                                                                    top: '50%',
+                                                                                    left: `-${fixedLineLength}px`,
+                                                                                    width: `${fixedLineLength}px`,
+                                                                                    height: lineThickness,
+                                                                                    backgroundColor: redLine,
+                                                                                    zIndex: 9999,
+                                                                                    transform: 'translateY(-50%)',
+                                                                                }} />
+                                                                        )}
+
+                                                                        {/* Right fallback */}
+                                                                        {leftDistance === 0 && isVerticallyCentered && (
+                                                                            <div
+                                                                                data-ignore="true"
+                                                                                style={{
+                                                                                    position: 'absolute',
+                                                                                    top: '50%',
+                                                                                    left: `${el.width}px`,
+                                                                                    width: `${fixedLineLength}px`,
+                                                                                    height: lineThickness,
+                                                                                    backgroundColor: redLine,
+                                                                                    zIndex: 9999,
+                                                                                    transform: 'translateY(-50%)',
+                                                                                }} />
+                                                                        )}
+                                                                    </>
+                                                                );
+                                                            })()}
                                                         </Rnd>
                                                     </React.Fragment>
                                                 );
                                             })}
-
                                         </div>
-
-                                        {/* Smart Guides Overlay */}
-                                        {!isCapturing && (
-                                            <div
-                                                data-ignore="true"
-                                                style={{
-                                                    position: 'absolute',
-                                                    top: `${inchesToPixels(envelopeData.printMarginTop || '0')}px`,
-                                                    left: `${inchesToPixels(envelopeData.printMarginLeft || '0')}px`,
-                                                    width: `calc(${inchesToPixels(envelopeData.envelopeWidth)}px - ${inchesToPixels(envelopeData.printMarginLeft || '0')}px - ${inchesToPixels(envelopeData.printMarginRight || '0')}px)`,
-                                                    height: `calc(${inchesToPixels(envelopeData.envelopeHeight)}px - ${inchesToPixels(envelopeData.printMarginTop || '0')}px - ${inchesToPixels(envelopeData.printMarginBottom || '0')}px)`,
-                                                    pointerEvents: 'none',
-                                                    zIndex: 9999
-                                                }}
-                                            >
-                                                {/* Vertical guides */}
-                                                {activeGuides.vertical.map((guide, idx) => (
-                                                    <div
-                                                        key={`v-${idx}`}
-                                                        style={{
-                                                            position: 'absolute',
-                                                            left: `${guide.x}px`,
-                                                            top: `${guide.y1}px`,
-                                                            width: '1px',
-                                                            height: `${guide.y2 - guide.y1}px`,
-                                                            backgroundColor: guide.type === 'canvas-center' ? '#FF00FF' : '#00D4FF',
-                                                            boxShadow: '0 0 2px rgba(0,0,0,0.3)'
-                                                        }}
-                                                    />
-                                                ))}
-
-                                                {/* Horizontal guides */}
-                                                {activeGuides.horizontal.map((guide, idx) => (
-                                                    <div
-                                                        key={`h-${idx}`}
-                                                        style={{
-                                                            position: 'absolute',
-                                                            top: `${guide.y}px`,
-                                                            left: `${guide.x1}px`,
-                                                            height: '1px',
-                                                            width: `${guide.x2 - guide.x1}px`,
-                                                            backgroundColor: guide.type === 'canvas-center' ? '#FF00FF' : '#00D4FF',
-                                                            boxShadow: '0 0 2px rgba(0,0,0,0.3)'
-                                                        }}
-                                                    />
-                                                ))}
-
-                                                {/* Spacing guides */}
-                                                {activeGuides.spacing.map((guide, idx) => {
-                                                    if (guide.type.includes('horizontal')) {
-                                                        const width = guide.x2 - guide.x1;
-                                                        return (
-                                                            <div key={`s-${idx}`}>
-                                                                <div
-                                                                    style={{
-                                                                        position: 'absolute',
-                                                                        left: `${guide.x1}px`,
-                                                                        top: `${guide.y}px`,
-                                                                        width: `${width}px`,
-                                                                        height: '1px',
-                                                                        backgroundColor: '#FF6B00',
-                                                                        boxShadow: '0 0 2px rgba(0,0,0,0.3)'
-                                                                    }}
-                                                                />
-                                                                <div
-                                                                    style={{
-                                                                        position: 'absolute',
-                                                                        left: `${guide.x1}px`,
-                                                                        top: `${guide.y - 3}px`,
-                                                                        width: '1px',
-                                                                        height: '7px',
-                                                                        backgroundColor: '#FF6B00'
-                                                                    }}
-                                                                />
-                                                                <div
-                                                                    style={{
-                                                                        position: 'absolute',
-                                                                        left: `${guide.x2}px`,
-                                                                        top: `${guide.y - 3}px`,
-                                                                        width: '1px',
-                                                                        height: '7px',
-                                                                        backgroundColor: '#FF6B00'
-                                                                    }}
-                                                                />
-                                                            </div>
-                                                        );
-                                                    } else {
-                                                        const height = guide.y2 - guide.y1;
-                                                        return (
-                                                            <div key={`s-${idx}`}>
-                                                                <div
-                                                                    style={{
-                                                                        position: 'absolute',
-                                                                        left: `${guide.x}px`,
-                                                                        top: `${guide.y1}px`,
-                                                                        width: '1px',
-                                                                        height: `${height}px`,
-                                                                        backgroundColor: '#FF6B00',
-                                                                        boxShadow: '0 0 2px rgba(0,0,0,0.3)'
-                                                                    }}
-                                                                />
-                                                                <div
-                                                                    style={{
-                                                                        position: 'absolute',
-                                                                        left: `${guide.x - 3}px`,
-                                                                        top: `${guide.y1}px`,
-                                                                        width: '7px',
-                                                                        height: '1px',
-                                                                        backgroundColor: '#FF6B00'
-                                                                    }}
-                                                                />
-                                                                <div
-                                                                    style={{
-                                                                        position: 'absolute',
-                                                                        left: `${guide.x - 3}px`,
-                                                                        top: `${guide.y2}px`,
-                                                                        width: '7px',
-                                                                        height: '1px',
-                                                                        backgroundColor: '#FF6B00'
-                                                                    }}
-                                                                />
-                                                            </div>
-                                                        );
-                                                    }
-                                                })}
-                                            </div>
-                                        )}
-
                                     </div>
                                     <div data-ignore="true" style={{ marginTop: '-23px', textAlign: 'center' }}>
                                         {PrintableareaHide !== 0 && <span style={{ backgroundColor: 'white' }}>Unprintable Area</span>}
